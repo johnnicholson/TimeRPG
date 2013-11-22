@@ -15,6 +15,10 @@ public class StatObject extends GameObject
 		stats = new Stats(0);
 		inv = new Inventory(inventorySize);
 	}
+	public float getSpeed()
+	{
+		return stats.getSpeed();
+	}
 
 	public int getLevel()
 	{

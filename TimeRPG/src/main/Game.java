@@ -1,5 +1,6 @@
 package main;
 
+import gameObject.Enemy;
 import gameObject.GameObject;
 import gameObject.Player;
 import gameObject.item.Cube;
@@ -18,8 +19,10 @@ public class Game
 	{
 		objects = new ArrayList<GameObject>();
 		player = new Player(Display.getWidth()/2 - Player.SIZE/2,Display.getHeight()/2 - Player.SIZE/2);
-		objects.add(player);
+		objects.add(new Enemy(100,450));
 		objects.add(new Cube(50,20));
+		objects.add(player);
+
 	}
 	
 	public void getInput()

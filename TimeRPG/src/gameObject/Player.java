@@ -58,9 +58,6 @@ public class Player extends StatObject
 		y += getSpeed() * magY;
 	}
 
-	public float getSpeed()
-	{
-		return 4f;
-	}
+
 
 }

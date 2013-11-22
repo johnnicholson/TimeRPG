@@ -1,7 +1,8 @@
 package gameObject;
 
-import gameObject.item.Inventory;
-import util.Stats;
+import gameObject.item.Item;
+
+import java.util.ArrayList;
 
 public class Enemy extends StatObject
 {
@@ -10,11 +11,12 @@ public class Enemy extends StatObject
 	protected float sightRange;
 	protected float attackRange;
 	
-	protected GameObject target;
+	protected StatObject target;
+	private static float DAMPING = 0.5f;
 
 	public Enemy(float x, float y)
 	{
-		init(x, y, 1.0f, 0.1f, 0.25f, SIZE, SIZE, INV_SIZE, 52, 40);
+		init(x, y, 1.0f, 0.1f, 0.25f, SIZE, SIZE, INV_SIZE, 124, 48);
 	}
 	public void init(float x, float y, float r, float g, float b, float sizeX, float sizeY, int inventorySize, float sightRange, float attackRange)
 	{
@@ -28,7 +30,6 @@ public class Enemy extends StatObject
 		if(target == null)
 		{
 			idol();
-			look();
 
 			return;
 		}
@@ -42,24 +43,47 @@ public class Enemy extends StatObject
 		}
 		
 	}
+	protected void idol()
+	{
+		look();
+		
+	}
+	protected void look()
+	{
+		ArrayList<GameObject> objs = main.Physics.sphereCollision(this, sightRange);
+		for (GameObject go : objs)
+		{
+			if (go.getType() == ID_PLAYER) //TODO Add method of enemies attacking each others
+			{
+				target = (StatObject)go;
+				break;
+			}
+		}
+		
+	}
 	protected void chase()
 	{
-		// TODO chase AI
+		float speedX = target.getX() -x;
+		float speedY = target.getY() - y;
 		
+		float maxSpeed = getSpeed() * DAMPING;
+		
+		if(speedX > maxSpeed)
+			speedX = maxSpeed;
+		if(speedX < -maxSpeed)
+			speedX = -maxSpeed;
+		if(speedY > maxSpeed)
+			speedY = maxSpeed;
+		if(speedY < -maxSpeed)
+			speedY = -maxSpeed;
+		
+		x += speedX;
+		y += speedY;
 	}
 	protected void attack()
 	{
 		// TODO Attack AI
 		
 	}
-	protected void idol()
-	{
-		// TODO Idol AI
-		
-	}
-	protected void look()
-	{
-		// TODO add method for enemy to find player/target
-		
-	}
+
 }

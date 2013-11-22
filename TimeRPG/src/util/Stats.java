@@ -33,4 +33,8 @@ public class Stats
 	{
 		exp += ex;
 	}
+	public float getSpeed()
+	{
+		return (getLevel() + 32)/10;
+	}
 }
