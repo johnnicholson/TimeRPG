@@ -19,7 +19,7 @@ public class Main
 	}
 	private static void initGame()
 	{
-		game = new Game();
+		game = Game.getGame();
 		
 	}
 	private static void initGL()
@@ -77,7 +77,6 @@ public class Main
 			Keyboard.create();
 		} catch (LWJGLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
